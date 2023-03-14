@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import styled from 'styled-components';
-
+import { useFetch } from "./useFetch";
 function App() {
 
   const StyledBg = styled.div`
@@ -18,29 +18,25 @@ function App() {
     background-color: green;
   `;
 
-  const url = "https://jsonplaceholder.typicode.com/users"
-  const [data, setData] = useState(null);
-
-  useEffect(() => {
-    fetch(url)
-      .then((response) => response.json())
-      .then((data)=> setData(data))
-  }, []);
-  
-  
+  const { data, loading, error, handleCancelRequest } = useFetch("https://jsonplaceholder.typicode.com/users")
 
   return (
     <StyledBg>
-
       <StyledH1>Fetch like a PRO</StyledH1>
-    
+      <button onClick={handleCancelRequest}> Cancelar peticion </button>
       <div>
         <ul>
-          {data?.map((user) => (
-            <li key={user.id}>
-              {user.name}
-            </li>
-          ))}
+          {
+            error ? 
+              (<li> Error: {error}</li>) : 
+              (loading ?
+                  (<li>Cargando. . .</li>) : 
+                  (data?.map((user) => (
+                    <li key={user.id}>
+                      {user.name}
+                    </li>
+                  ))))
+          }
         </ul>
       </div>
     
