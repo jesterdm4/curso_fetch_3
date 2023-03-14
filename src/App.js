@@ -1,22 +1,23 @@
 import React from 'react'
 import styled from 'styled-components';
 import { useFetch } from "./useFetch";
+
+const StyledBg = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  color: white;
+  background-color: black;
+`;
+
+const StyledH1 = styled.h1`
+  background-color: green;
+`;
+
 function App() {
-
-  const StyledBg = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 100%;
-    height: 100vh;
-    color: white;
-    background-color: black;
-  `;
-
-  const StyledH1 = styled.h1`
-    background-color: green;
-  `;
 
   const { data, loading, error, handleCancelRequest } = useFetch("https://jsonplaceholder.typicode.com/users")
 
