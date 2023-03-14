@@ -1,24 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react'
+import styled from 'styled-components';
 
 function App() {
+
+  const StyledBg = styled.div`
+    background-color: black;
+  `;
+
+  const StyledH1 = styled.h1`
+    color: white;
+  `;
+
+  const url = "https://jsonplaceholder.typicode.com/users"
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
+    fetch(url)
+      .then((response) => response.json())
+      .then((data)=> setData(data))
+  }, []);
+  
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <StyledBg>
+
+      <StyledH1>Fetch like a PRO</StyledH1>
+    
+      <div>
+        <ul>
+          {data?.map((user) => (
+            <li key={user.id}>
+              {user.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+    
+    </StyledBg>
   );
 }
 
